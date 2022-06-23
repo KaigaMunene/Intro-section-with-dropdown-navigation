@@ -6,7 +6,6 @@
   "extends": [
     "airbnb",
     "prettier",
-    "plugin:node/recommended",
     "plugin:react/recommended"
   ],
   "parserOptions": {
@@ -16,14 +15,12 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["prettier"],
+  "plugins": ["react", "prettier", "jest"],
   "rules": {
+    "import/prefer-default-export": "off",
+    "import/no-unresolved": [2, { "caseSensitive": false }],
     "prettier/prettier": "error",
-    "no-unused-vars": "warn",
-    "no-console": "off",
-    "func-names": "off",
-    "no-process-exit": "off",
-    "object-shorthand": "off",
-    "class-methods-use-this": "off"
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off"
   }
 }
