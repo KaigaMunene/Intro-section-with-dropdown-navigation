@@ -1,9 +1,39 @@
-import { BiMenu } from "react-icons/bi";
-// import { AiFillCloseCircle } from "react-icons/ai";
+import { useEffect, useState } from "react";
+
+import { BiMenuAltRight } from "react-icons/bi";
+import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "./Header.module.scss";
 import pic from "../assets/images/logo.svg";
 
 function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [size, setSize] = useState({
+    width: undefined,
+    height: undefined,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (size.width > 768 && menuOpen) {
+      setMenuOpen(false);
+    }
+  }, [size.width, menuOpen]);
+
+  const menuToggleHandler = () => {
+    setMenuOpen((p) => !p);
+  };
+
   return (
     <header className={classes.header}>
       <div className={classes.header__content}>
@@ -13,7 +43,11 @@ function Header() {
           alt="Snap logo"
         />
 
-        <nav className={classes.header__content__nav}>
+        <nav
+          className={`${classes.header__content__nav} ${
+            menuOpen ? classes.isMenu : ""
+          }`}
+        >
           <ul>
             <li>
               <a href="/">Features</a>
@@ -28,17 +62,18 @@ function Header() {
               <a href="/">About</a>
             </li>
           </ul>
-          <div className={classes.header__content__nav__button}>
-            <button type="button" className="login">
+          <div className="btn">
+            <button type="button" id="login">
               Login
-            </button>
-            <button type="button" className="register">
-              Register
             </button>
           </div>
         </nav>
         <div className={classes.header__content__toggle}>
-          <BiMenu />
+          {!menuOpen ? (
+            <BiMenuAltRight onClick={menuToggleHandler} />
+          ) : (
+            <AiFillCloseCircle onClick={menuToggleHandler} />
+          )}
         </div>
       </div>
     </header>
