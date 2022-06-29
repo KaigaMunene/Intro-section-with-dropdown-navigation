@@ -1,0 +1,131 @@
+@use "../styles/variables.scss";
+
+.header {
+  width: 100%;
+  height: variables.$header-height;
+  padding: 1.5rem;
+  @include variables.breakpoint(md) {
+    padding: 0 3rem;
+  }
+  transition: 0.3s ease all;
+
+  &__content {
+    overflow: hidden;
+    margin: 0 auto;
+    max-width: 1920px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 100;
+
+    &__logo {
+      width: 5rem;
+      height: 3rem;
+      padding: 0.5rem;
+    }
+
+    &__nav {
+      top: 0;
+      right: 100%;
+      bottom: 0;
+      width: 100%;
+      height: 100vh;
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: variables.$white;
+      backdrop-filter: blur(2px);
+      transform: translate(0);
+      transition: 0.3s ease transform;
+
+      @include variables.breakpoint(md) {
+        transform: none;
+        flex-direction: row;
+        background: transparent;
+        width: auto;
+        height: 100%;
+        position: static;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: variables.$spacing-lg;
+        @include variables.breakpoint(md) {
+          flex-direction: row;
+          align-items: center;
+          margin-bottom: 0;
+          margin-right: calc(0.5rem + variables.$spacing-md);
+        }
+        li {
+          &:not(:last-child) {
+            margin-bottom: variables.$spacing-lg;
+            @include variables.breakpoint(md) {
+              margin-bottom: 0;
+              margin-right: variables.$spacing-md;
+            }
+          }
+          a {
+            text-decoration: none;
+            color: variables.$medium-gray;
+            padding: 0.75rem 1.25rem;
+            border-radius: variables.$border-radius;
+            transition: 0.3s ease all;
+
+            &:hover {
+              background: variables.$almost-black;
+              color: variables.$white;
+            }
+            &:active {
+              border-radius: calc(#{variables.$border-radius} + 6px);
+            }
+          }
+        }
+      }
+      button {
+        cursor: pointer;
+        outline: none;
+        padding: 0.75rem 1.25rem;
+        border-radius: variables.$border-radius;
+        font-size: 1rem;
+        font-family: inherit;
+        color: variables.$medium-gray;
+        border: 1px solid variables.$medium-gray;
+        transition: 0.3s ease all;
+        &:hover {
+          background: variables.$almost-black;
+          color: variables.$white;
+        }
+        &:active {
+          border-color: variables.$medium-gray;
+          color: variables.$white;
+        }
+      }
+      &.isMenu {
+        transform: translate(100%);
+      }
+    }
+
+    &__toggle {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-size: 2rem;
+      transition: 0.3s ease all;
+      position: relative;
+      color: variables.$almost-black;
+
+      &:hover {
+        color: variables.$almost-black;
+      }
+      @include variables.breakpoint(md) {
+        display: none;
+      }
+    }
+  }
+}
